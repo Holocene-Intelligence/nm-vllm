@@ -8,7 +8,7 @@ import subprocess
 import warnings
 from pathlib import Path
 from typing import List, Set
-
+os.environ["TORCH_CUDA_ARCH_LIST"]="8.0"
 from packaging.version import parse, Version
 import setuptools
 import torch
@@ -48,9 +48,9 @@ def _is_cuda() -> bool:
 
 
 # Compiler flags.
-CXX_FLAGS = ["-g", "-O2", "-std=c++17"]
+CXX_FLAGS = ["-g", "-O3", "-march=znver3", "-std=c++17"]
 # TODO(woosuk): Should we use -O3?
-NVCC_FLAGS = ["-O2", "-std=c++17"]
+NVCC_FLAGS = ["-O3", "-std=c++17"]
 
 if _is_hip():
     if ROCM_HOME is None:
